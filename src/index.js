@@ -2,18 +2,18 @@ const crypto = require('crypto');
 const https = require('https');
 const querystring = require('querystring');
 
-const sign = Symbol('XiaoeSDK#sign');
-const prepareParams = Symbol('XiaoeSDK#prepareParams');
-const verifyResponse = Symbol('XiaoeSDK#verifyResponse');
+const sign = Symbol('Xiaoe#sign');
+const prepareParams = Symbol('Xiaoe#prepareParams');
+const verifyResponse = Symbol('Xiaoe#verifyResponse');
 
-module.exports = class XiaoeSDK {
+module.exports = class Xiaoe {
   constructor(appId, appSecret) {
     this.appId = appId;
     this.appSecret = appSecret;
   }
 
   // eslint-disable-next-line
-  async send({ cmd, version = '1.0', useType = '0', params }) {
+  async send({ cmd, version = '1.0', useType = '0', params = {} }) {
     try {
       const postData = querystring.stringify(this[prepareParams](useType, params));
       const response = await new Promise((resolve, reject) => {

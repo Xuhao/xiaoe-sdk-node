@@ -11,10 +11,27 @@
 ```javascript
 const Xiaoe = require('xiaoe-sdk-node');
 
-# Create client with your app_id and app_secret
+// Create client with your app_id and app_secret
 const client = new Xiaoe('appId', 'appSecret');
 
 const result = await client.send({ cmd: 'users.getinfo', params: { phone: '13888888888'} })
+```
+
+#### 在eggjs中使用
+
+```javascript
+// app.js
+const Xiaoe = require('xiaoe-sdk-node');
+module.exports = app => {
+  xiaoe: new Xiaoe(app.config.xiaoe.appId, app.config.xiaoe.appSecret)
+};
+
+// app/controller/home.js
+class HomeController extends Controller {
+  async xiaoe() {
+    this.ctx.body = await this.app.xiaoe.send({ cmd: 'users.getinfo', params: { phone: '13888888888'} });
+  }
+}
 ```
 
 #### send(options)
